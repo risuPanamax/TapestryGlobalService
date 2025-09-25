@@ -1,0 +1,71 @@
+{
+    "maskConfigs": [
+      {
+        "mask": "****",
+        "pattern": "\"password\":\"", 
+        "delimiter": "\"",
+        "key": "password"
+      },
+      {
+        "mask": "****",
+        "pattern": "\"MPIN\":\"",
+        "delimiter": "\"",
+        "key": "MPIN"
+      },
+      {
+        "mask": "###@%%%(3)",
+        "pattern": "\"EmailAddress\":\"",
+        "delimiter": "\"",
+        "key": "EmailAddress"
+      },
+      {
+        "mask": "#### #### ####(4)",
+        "pattern": "card\":\"",
+        "delimiter": "\"",
+        "key": "card"
+      },
+      {
+        "mask": "****",
+        "pattern": "\"currentCredential\":\"", 
+        "delimiter": "\"",
+        "key": "currentCredential"
+      },
+      {
+        "mask": "****",
+        "pattern": "\"newCredential\":\"", 
+        "delimiter": "\"",
+        "key": "newCredential"
+      },
+      {
+        "mask": "****",
+        "pattern": "\"credetialValue\":\"", 
+        "delimiter": "\"",
+        "key": "credetialValue"
+      },
+      {
+        "mask": "****",
+        "pattern": "\"oldCredetialValue\":\"", 
+        "delimiter": "\"",
+        "key": "oldCredetialValue"
+      },
+      {
+        "mask": "****",
+        "pattern": "\"Credentials\":\"", 
+        "delimiter": "\"",
+        "key": "Credentials"
+      },
+      {
+        "mask": "****",
+        "pattern": "\"otp\":\"", 
+        "delimiter": "\"",
+        "key": "otp"
+      }
+    ],
+    "anonymConfigs": [
+      {
+        "uniqueLength": 6,
+        "pattern": "\"userName\":\"",
+        "delimiter": "\""
+      }
+    ]
+  }

@@ -1,0 +1,12 @@
+{
+    "dbHost": "vault:db-cred-Tapestry:host",
+    "dbPort": "vault:db-cred-Tapestry:port",
+    "username": "vault:db-cred-Tapestry:username",
+    "password": "vault:db-cred-Tapestry:password",
+    "database": "vault:db-cred-Tapestry:database",
+    "dialect": "mysql",
+    "max": 10,
+    "min": 5,
+    "acquire": 30000,
+    "idle": 10000
+  }

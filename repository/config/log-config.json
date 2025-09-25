@@ -1,0 +1,40 @@
+{
+    "levels": {
+      "error": 0,
+      "trace": 1,
+      "warn": 2,
+      "info": 3,
+      "http": 4,
+      "verbose": 5,
+      "debug": 6,
+      "silly": 7
+    },
+    "logDirectory": "./repository/logs",
+    "datePattern": "YYYY-MM-DD",
+    "applicationFile": {
+      "level": "debug",
+      "filename": "application",
+      "maxsize": "50m"
+    },
+    "errorFile": {
+      "level": "error",
+      "filename": "error",
+      "maxsize": "50m"
+    },
+    "errorTraceFile": {
+      "level": "trace",
+      "filename": "error-trace",
+      "maxsize": "50m"
+    },
+    "httpLogFile": {
+      "level": "http",
+      "filename": "http",
+      "maxsize": "50m"
+    },
+    "uncaughtExceptionLogFileName": {
+      "filename": "uncaughtExceptions.log"
+    },
+    "console": {
+      "level": "warn"
+    }
+  }

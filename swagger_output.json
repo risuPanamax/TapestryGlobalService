@@ -1,0 +1,78 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Tapestry Global Service Rest API",
+    "description": "Tapestry Global Service Rest API",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "servers": [
+    {
+      "url": "http://localhost:6666",
+      "description": "Local server"
+    }
+  ],
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/conversations": {
+      "post": {
+        "tags": [
+          "MagicBuilder"
+        ],
+        "summary": "Create Conversation",
+        "description": "This endpoint is used to create a Conversation.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/send-message": {
+      "post": {
+        "tags": [
+          "MagicBuilder"
+        ],
+        "summary": "Send Message",
+        "description": "This endpoint is used to send a message.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/get-bpmn": {
+      "get": {
+        "tags": [
+          "MagicBuilder"
+        ],
+        "summary": "Get BPMN",
+        "description": "This endpoint is used to get a BPMN.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
+}
