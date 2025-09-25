@@ -8,7 +8,9 @@ class ExternalApiDetail extends BaseModels.BaseModelStatusVisibilityValidToFrom 
     declare Name: string;
     declare Description: string;
     declare ApiProvider: string;
-    declare RequestType: number ; // 1: JSON, 2: XML, 3: FORM
+    declare Protocol: number;
+    declare CertFileName: string;
+    declare RequestType: number; // 1: JSON, 2: XML, 3: FORM
     declare HTTPRequestType: number; // 1: GET, 2: POST, 3: PUT, 4: DELETE
     declare Request: any;
 }
@@ -36,10 +38,19 @@ ExternalApiDetail.initModel(
             type: DataTypes.STRING(255),
             allowNull: false,
         },
+        Protocol: {
+            type: DataTypes.TINYINT.UNSIGNED,
+            allowNull: false,
+            comment: "StanderMaster-1: HTTP, 2: HTTPS",
+        },
+        CertFileName: {
+            type: DataTypes.STRING(100),
+            allowNull: true,
+        },
         RequestType: {
             type: DataTypes.TINYINT.UNSIGNED,
             allowNull: true,
-            comment: "1: JSON, 2: XML, 3: FORM",
+            comment: "StanderMaster-1: JSON, 2: XML, 3: FORM",
         },
         HTTPRequestType: {
             type: DataTypes.INTEGER,

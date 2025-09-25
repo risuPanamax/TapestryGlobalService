@@ -11,12 +11,10 @@ import { ExternalApiDetail } from "../models";
 const getExternalApiByApiEndPointAndHttpReqType = async (externalApiRequestData: ExternalApiRequestData): Promise<ExternalApiDetail | null> => {
     try {
         debugLogger("Fetching all system parameters", MODULE);
-        console.log("externalApiRequestData---------",externalApiRequestData);
-        
-        const systemData = await externalApiRepository.getExternalApiByApiEndPointAndHttpReqType(externalApiRequestData);
-        return systemData;
+        const externalApiResponse = await externalApiRepository.getExternalApiByApiEndPointAndHttpReqType(externalApiRequestData);
+        return externalApiResponse;
     } catch (error: any) {
-        errorLogger(`Error fetching system parameters: ${error?.message}`, MODULE);
+        errorLogger(`Error fetching system parameters`, error,MODULE);
         throw new TapestryGlobalError(MODULE, error, 500, ErrorConstants.TECHNICAL_ERROR);
     }
 };

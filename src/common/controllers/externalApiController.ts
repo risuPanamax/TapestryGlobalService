@@ -11,8 +11,7 @@ const getExternalApiByApiEndPointAndHttpReqType = asyncErrorHandler(
     const { requestId } = req as any;
 
     debugLogger("Handling request to get all system parameters", MODULE);
-    console.log("Req.body---------",req.body);
-    
+        
     const Data = await externalApiService.getExternalApiByApiEndPointAndHttpReqType(req.body);
 
     res.status(200).json({

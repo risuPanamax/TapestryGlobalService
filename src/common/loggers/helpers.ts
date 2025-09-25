@@ -1,7 +1,7 @@
 import { baseLogger } from "./index";
 import { getRequestContext } from "../utils/requestContext";
 
-export const errorLogger = (message: string, error: any = {}, MODULE = "") => {
+export const errorLogger = (message: string, error: any | null, MODULE = "") => {
   const { requestId } = getRequestContext();
   baseLogger.error(
     `${message}. SQL Error: ${error?.parent?.message || "N/A"}, Error: ${error?.message || "N/A"}`,
@@ -35,5 +35,5 @@ export const tapestryGlobalErrorLogger = (
 ) => {
   const { requestId } = getRequestContext();
 
-baseLogger.log( `Error Trace: ${JSON.stringify(error||{})} `, { module: MODULE, reqId: requestId, } );
+  baseLogger.log(`Error Trace: ${JSON.stringify(error || {})} `, { module: MODULE, reqId: requestId, });
 };

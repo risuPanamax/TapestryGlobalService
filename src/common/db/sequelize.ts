@@ -44,12 +44,7 @@ sequelize
         );
     })
     .catch((err: any) => {
-        console.log("err--------------err");
-
-        errorLogger(
-            `Unable to connect to the database`, err,
-            MODULE
-        );
+        errorLogger(`Unable to connect to the database`, err, MODULE);
         traceLogger(err.stack, MODULE);
     });
 
