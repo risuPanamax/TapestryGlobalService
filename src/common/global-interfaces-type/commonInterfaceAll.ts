@@ -32,5 +32,5 @@ export interface CommonRequest {
 // External API Request Data Interface
 export interface ExternalApiRequestData {
   ApiEndPoint: string;
-  HTTPRequestType: string;
+  HTTPRequestType: number;
 }

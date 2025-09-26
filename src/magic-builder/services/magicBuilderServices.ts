@@ -1,9 +1,11 @@
-import { commonHelper } from '../../common/helpers/extennalApiCallHelper/commonRestHelper';
+import CommonConstants from '../../common/constant/commonConstant';
+import { commonHelper } from '../../common/helpers/restApiCallHelper/commonRestHelper';
+import { debugLogger } from '../../common/loggers';
 import { externalApiService } from '../../common/services/externalApiService';
-import  magicBuilderEndPoints  from '../constant/magicBuilderApiEndpoint';
+import  magicBuilderEndPoints  from '../constants/magicBuilderApiEndpoint';
 import { ConversationDetail } from '../models/conversationDetail';
-
-// const createConversations = (conversionDto:any) => { }
+const MODULE = "CONVERSATION_SERVICE";
+// const createConversations = (conversationDto:any) => { }
 interface IConversationDetail {
   ConversationId: string;
   Message: string;
@@ -11,66 +13,100 @@ interface IConversationDetail {
 
 export { ConversationDetail };
 
-const createConversations = async (conversionDto?: ConversationDetail): Promise<any> => {
+const createConversations = async (): Promise<any> => {
+    debugLogger("createConversations - Started", MODULE);
 
-    const apiEndPoint = magicBuilderEndPoints.CONVERSIONS;
-    const apiMethod = "2";
+    const apiEndPoint = magicBuilderEndPoints.CONVERSATION;
+    const apiMethod = CommonConstants.HTTP_REQUEST_TYPE.POST;
+
+    debugLogger(`Fetching external API detail using: Endpoint=${apiEndPoint}, Method=${apiMethod}`, MODULE);
+
     const externalApiReq = {
         ApiEndPoint: apiEndPoint,
         HTTPRequestType: apiMethod
-    }
+    };
 
-    //1. external API call
     const externalApiData = await externalApiService.getExternalApiByApiEndPointAndHttpReqType(externalApiReq);
 
-    //2. Call openturf API
-    const apiData = await commonHelper(externalApiData, apiEndPoint);
-    //3. send API response
+    debugLogger("Calling commonHelper with external API", MODULE);
+
+    const apiData = await commonHelper(externalApiData);
+
+    debugLogger("commonHelper returned data - returning response", MODULE);
 
     return apiData.data;
 };
 
-const sendMessage = async (conversionDto: IConversationDetail): Promise<any> => {
+const sendMessage = async (conversationDto: IConversationDetail): Promise<any> => {
+    debugLogger("sendMessage - Started", MODULE);
 
-    const apiEndPoint = magicBuilderEndPoints.CONVERSIONS_SEND_MESSAGE;
-    const apiMethod = "2";
+    const apiEndPoint = magicBuilderEndPoints.CONVERSATION_SEND_MESSAGE;
+    const apiMethod = CommonConstants.HTTP_REQUEST_TYPE.POST;
+
+    debugLogger(`Fetching external API detail using: Endpoint=${apiEndPoint}, Method=${apiMethod}`, MODULE);
+
     const externalApiReq = {
         ApiEndPoint: apiEndPoint,
         HTTPRequestType: apiMethod
-    }
+    };
 
-    //1. external API call
     const externalApiData = await externalApiService.getExternalApiByApiEndPointAndHttpReqType(externalApiReq);
-    console.log("---externalApiData---",externalApiData);
+
+    debugLogger("Calling commonHelper with external API", MODULE);
+
+    const apiData = await commonHelper(externalApiData, conversationDto);
+    debugLogger("commonHelper returned data - returning response", MODULE);
+
+    apiData.data = {
+        ...apiData.data,
+        conversationId: conversationDto.ConversationId
+    };
+
+    return apiData.data;
+};
+
+// const getBPMN = async (conversationDto?: ConversationDetail): Promise<any> => {
     
-    //2. Call openturf API
-    const apiData = await commonHelper(externalApiData, apiEndPoint);
-    console.log("---apiData---",apiData);
-    //3. send API response
+//     const apiEndPoint = magicBuilderEndPoints.CONVERSATION_GET_BPMN_XML;
+//     const apiMethod = CommonConstants.HTTP_REQUEST_TYPE.GET;
+//     const externalApiReq = {
+//         ApiEndPoint: apiEndPoint,
+//         HTTPRequestType: apiMethod
+//     }
+    
+//     //1. external API call
+//     const externalApiData = await externalApiService.getExternalApiByApiEndPointAndHttpReqType(externalApiReq);
 
-    return apiData.data;
-};
-// const getBPMN = () => { }
-const getBPMN = async (conversionDto?: ConversationDetail): Promise<any> => {
-    const apiEndPoint = magicBuilderEndPoints.CONVERSIONS_GET_BPMN_XML;
-    const apiMethod = "1";
+//     //2. Call openturf API
+//     const apiData = await commonHelper(externalApiData, apiEndPoint);
+
+//     //3. send API response
+//     return apiData.data;
+// };
+const getBPMN = async (conversationDto?: ConversationDetail): Promise<any> => {
+    debugLogger("getBPMN - Started", MODULE);
+
+    const apiEndPoint = magicBuilderEndPoints.CONVERSATION_GET_BPMN_XML;
+    const apiMethod = CommonConstants.HTTP_REQUEST_TYPE.GET;
+
+    debugLogger(`Fetching external API detail using: Endpoint=${apiEndPoint}, Method=${apiMethod}`, MODULE);
+
     const externalApiReq = {
         ApiEndPoint: apiEndPoint,
         HTTPRequestType: apiMethod
-    }
+    };
 
-    //1. external API call
+    debugLogger("Fetching external API config using endpoint and method", "conversation.service");
+
     const externalApiData = await externalApiService.getExternalApiByApiEndPointAndHttpReqType(externalApiReq);
-    console.log("---externalApiData---", externalApiData);
 
-    //2. Call openturf API
-    const apiData = await commonHelper(externalApiData, apiEndPoint);
-    console.log("---apiData---", apiData);
-    //3. send API response
+   
+    debugLogger("Calling commonHelper with external API", MODULE);
+
+    const apiData = await commonHelper(externalApiData, conversationDto);
 
     return apiData.data;
 };
-
 
 export const magicBuilderService = {
     createConversations,

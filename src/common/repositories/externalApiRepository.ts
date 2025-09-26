@@ -4,7 +4,7 @@ import { ExternalApiRequestData } from "../global-interfaces-type/commonInterfac
 import { debugLogger } from "../loggers";
 import { ExternalApiDetail } from "../models";
 import { getVisibilityStatusConditions } from "../validators/whereCluseValidtion";
-import { commonHelper } from "../helpers/extennalApiCallHelper/commonRestHelper";
+import { commonHelper } from "../helpers/restApiCallHelper/commonRestHelper";
 
 
 

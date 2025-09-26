@@ -2,22 +2,22 @@ CREATE DATABASE `TapestryGlobalService`;
 USE `TapestryGlobalService`;
 
 CREATE TABLE `TBLMExternalApiDetail` (
-  `ExternalApiId` INT NOT NULL AUTO_INCREMENT,
-  `ApiEndPoint` VARCHAR(255) NOT NULL,
-  `Name` VARCHAR(100) NOT NULL,
-  `Description` VARCHAR(200) NOT NULL,
-  `ApiProvider` VARCHAR(255) NOT NULL,
-  `Protocol` TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT 'StandardMaster-1: HTTP, 2: HTTPS',
-  `CertFileName` VARCHAR(200) DEFAULT NULL,
-  `RequestType` TINYINT UNSIGNED DEFAULT NULL COMMENT 'StandardMaster-1: JSON, 2: XML, 3: FORM',
-  `HTTPRequestType` INT NOT NULL COMMENT 'StandardMaster-1-GET, 2-POST, 3-PUT, 4-DELETE',
-  `Request` BLOB NOT NULL,
-  `ValidFromDate` DATETIME DEFAULT NULL,
-  `ValidToDate` DATETIME DEFAULT NULL,
-  `Visibility` TINYINT UNSIGNED NOT NULL DEFAULT '1',
-  `Status` TINYINT UNSIGNED NOT NULL DEFAULT '0',
+  `ExternalApiId` int NOT NULL AUTO_INCREMENT,
+  `ApiEndPoint` varchar(255) NOT NULL,
+  `Name` varchar(100) NOT NULL,
+  `Description` varchar(200) NOT NULL,
+  `ApiProvider` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'StandardMaster: API Provider - 1: OpenTurf',
+  `Protocol` tinyint unsigned NOT NULL DEFAULT '1' COMMENT 'StandardMaster: Protocol -1: HTTP, 2: HTTPS',
+  `CertFileName` varchar(200) DEFAULT NULL,
+  `RequestType` tinyint unsigned DEFAULT NULL COMMENT 'StandardMaster: Request Type -1: JSON, 2: XML, 3: FORM',
+  `HTTPRequestType` int NOT NULL COMMENT 'StandardMaster: HTTP Request Type -1: GET, 2: POST, 3: PUT, 4: DELETE',
+  `Request` blob NOT NULL,
+  `ValidFromDate` datetime DEFAULT NULL,
+  `ValidToDate` datetime DEFAULT NULL,
+  `Visibility` tinyint unsigned NOT NULL DEFAULT '1',
+  `Status` tinyint unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`ExternalApiId`)
-); 
+);
 
 CREATE TABLE `TBLMSystemParameter` (
   `SystemParameterId` int unsigned NOT NULL AUTO_INCREMENT,
@@ -29,8 +29,8 @@ CREATE TABLE `TBLMSystemParameter` (
   `ValueSource` varchar(100) DEFAULT NULL,
   `Validation` varchar(250) DEFAULT NULL,
   `ValidationMessageML` json DEFAULT NULL COMMENT 'This field is used to store the multiple language value in JSON format',
-  `ValidFromDate` DATETIME DEFAULT NULL,
-  `ValidToDate` DATETIME DEFAULT NULL,
+  `ValidFromDate` datetime DEFAULT NULL,
+  `ValidToDate` datetime DEFAULT NULL,
   `Status` tinyint unsigned NOT NULL DEFAULT '0',
   `Visibility` tinyint unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`SystemParameterId`),
@@ -55,7 +55,7 @@ CREATE TABLE `TBLMStandardMasterDetail` (
   `DisplayName` varchar(255) NOT NULL,
   `DisplayNameML` json DEFAULT NULL COMMENT 'This field is used to store the multiple language value in json format',
   `UID` varchar(255) NOT NULL,
-  `Value` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `Value` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `MasterTypeId` int unsigned NOT NULL,
   `Status` tinyint unsigned NOT NULL DEFAULT '0',
   `Visibility` tinyint unsigned NOT NULL DEFAULT '1',
