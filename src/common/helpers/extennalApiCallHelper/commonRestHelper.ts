@@ -22,8 +22,6 @@ export const commonHelper = async (apiDto: ExternalApiDetail | null, payload?: a
     throw new TapestryGlobalError(MODULE, null, 500, ErrorConstants.TECHNICAL_ERROR);
   }
 
-  console.log("apiDto------", apiDto);
-
   const { HTTPRequestType } = apiDto;
 
   const GET = CommonConstants.HTTP_REQUEST_TYPE.GET;
@@ -43,7 +41,6 @@ export const commonHelper = async (apiDto: ExternalApiDetail | null, payload?: a
   debugLogger(`Calling commonHelper, HTTPRequestType: ${HTTPRequestType}`, MODULE);
 
   try {
-    console.log("apiDto-----", apiDto);
     switch (HTTPRequestType) {
 
       case GET:

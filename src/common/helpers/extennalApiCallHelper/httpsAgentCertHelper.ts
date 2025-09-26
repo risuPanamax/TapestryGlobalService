@@ -6,6 +6,7 @@ import path from "path";
 import { debugLogger, errorLogger } from "../../loggers";
 import TapestryGlobalError from "../../error/tapestryGlobalError";
 import { ErrorConstants } from "../../constant/errorConstant";
+import CommonConstants from "../../constant/commonConstant";
 
 const MODULE = "HTTPS_AGENT_CERT_HELPER";
 
@@ -48,7 +49,7 @@ const createHttpClient = (apiDto: ExternalApiDetail): AxiosInstance => {
     // fallback → normal axios client
     return axios.create();
   } catch (error: any) {
-    errorLogger(`Failed to create HTTP client: ${error.message}`, MODULE);
+    errorLogger(`Failed to create HTTP client`, error, MODULE);
     throw error;
   }
 };
@@ -61,17 +62,21 @@ export const callExternalApi = async (apiDto: ExternalApiDetail, payload: Payloa
 
   try {
     let response;
+    const GET = CommonConstants.HTTP_REQUEST_TYPE.GET;
+    const POST = CommonConstants.HTTP_REQUEST_TYPE.POST;
+    const PUT = CommonConstants.HTTP_REQUEST_TYPE.PUT;
+    const DELETE = CommonConstants.HTTP_REQUEST_TYPE.DELETE;
     switch (apiDto.HTTPRequestType) {
-      case 1: // GET
+      case GET: //1- GET
         response = await client.get(payload.FinalUrl, payload.header);
         break;
-      case 2: // POST
+      case POST: // 2- POST
         response = await client.post(payload.FinalUrl, payload.body ?? {}, payload.header);
         break;
-      case 3: // PUT
+      case PUT: //3- PUT
         response = await client.put(payload.FinalUrl, payload.body ?? {}, payload.header);
         break;
-      case 4: // DELETE
+      case DELETE: //4- DELETE
         response = await client.delete(payload.FinalUrl, payload.header);
         break;
       default:
