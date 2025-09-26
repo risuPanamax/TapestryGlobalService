@@ -32,12 +32,11 @@ export const createConversations = asyncErrorHandler(
 
     const Data = await magicBuilderService.createConversations();
 
-    res.status(200).json({
-      status: 200,
-      RequestId: requestId,
-      message: "Success",
-      Data,
-    });
+    res.success(
+      200,
+      "Success",
+      Data
+    );
   }
 );
 
@@ -60,12 +59,11 @@ export const sendMessage = asyncErrorHandler(
     
     const Data = await magicBuilderService.sendMessage(sendMessageDto);
 
-    res.status(200).json({
-      status: 200,
-      RequestId: requestId,
-      message: "Success",
-      Data: Data,
-    });
+    res.success(
+      200,
+      "Success",
+      Data
+    );
   }
 );
 
@@ -77,19 +75,16 @@ export const getBPMN = asyncErrorHandler(
     let { requestId, query, userAndOrgInfo } = req as any;
 
     userAndOrgInfo = userAndOrgInfoDummy
-    console.log("---------------");
 
     debugLogger("Get BPMN Request", MODULE);
     const conversionDto = [{ requestId, query }];
 
     const Data = await magicBuilderService.sendMessage(query);
-
-    res.status(200).json({
-      status: 200,
-      RequestId: requestId,
-      message: "Success",
-      Data: [conversionDto],
-    });
+    res.success(
+      200,
+      "Success",
+      Data
+    );
   }
 );
 
