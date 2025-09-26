@@ -57,7 +57,7 @@ const startApplication = async () => {
   app.use(expressLogger);
   app.use(responseMiddleware);
   if (NODE_ENV === "DEV" && process.env.NODE_ENV !== "test") {
-    const swaggerFile = require("../swagger_output.json");
+    const swaggerFile = require("../TapestryGlobalService/swagger_output.json");
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile, { explorer: true }));
   }
   

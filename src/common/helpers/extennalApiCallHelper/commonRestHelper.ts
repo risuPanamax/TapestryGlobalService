@@ -36,6 +36,7 @@ export const commonHelper = async (apiDto: ExternalApiDetail | null, payload?: a
     FinalUrl,
     header
   };
+  // add replace  dynamic parameter
 
   // return payload;
   debugLogger(`Calling commonHelper, HTTPRequestType: ${HTTPRequestType}`, MODULE);

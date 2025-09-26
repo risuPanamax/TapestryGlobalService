@@ -25,18 +25,18 @@ export const createConversations = asyncErrorHandler(
 
     debugLogger("Create Conversation Request", MODULE);
 
-    const conversionDto = [{ requestId, body }];
-
+    // const conversionDto = [{ requestId, body  }];
     // const errorInstance = "Something went wrong in controller"
 
     // throw new TapestryGlobalError(MODULE, new Error(errorInstance), 400, ErrorConstants.TECHNICAL_ERROR, { userId: 123, action: "createUser" });
 
-    const Data = await magicBuilderService.createConversations(conversionDto);
+    const Data = await magicBuilderService.createConversations();
 
     res.status(200).json({
       status: 200,
+      RequestId: requestId,
       message: "Success",
-      Data:Data,
+      Data,
     });
   }
 );
@@ -51,14 +51,20 @@ export const sendMessage = asyncErrorHandler(
     userAndOrgInfo = userAndOrgInfoDummy
 
     debugLogger("Send Message Request", MODULE);
-    const conversionDto = [{ requestId, body }];
-
-    // const Data = await magicBuilderService.sendMessage(conversionDto);
+    // const conversionDto = [{ requestId, body }];
+    // const conversionDto = [{ requestId, body,  }];
+    const sendMessageDto = {
+      ConversationId: body.ConversationId,
+      Message: body.Message
+    }; 
+    
+    const Data = await magicBuilderService.sendMessage(sendMessageDto);
 
     res.status(200).json({
       status: 200,
+      RequestId: requestId,
       message: "Success",
-      Data: [conversionDto],
+      Data: Data,
     });
   }
 );
@@ -71,11 +77,16 @@ export const getBPMN = asyncErrorHandler(
     let { requestId, query, userAndOrgInfo } = req as any;
 
     userAndOrgInfo = userAndOrgInfoDummy
+    console.log("---------------");
 
     debugLogger("Get BPMN Request", MODULE);
     const conversionDto = [{ requestId, query }];
+
+    const Data = await magicBuilderService.sendMessage(query);
+
     res.status(200).json({
       status: 200,
+      RequestId: requestId,
       message: "Success",
       Data: [conversionDto],
     });

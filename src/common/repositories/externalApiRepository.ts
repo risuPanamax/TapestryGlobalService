@@ -24,7 +24,8 @@ const getExternalApiByApiEndPointAndHttpReqType = async (
             },
             raw: true
         });
-    return commonHelper(response)
+    return response;    
+    // return commonHelper(response)
 };
 export const externalApiRepository = {
     getExternalApiByApiEndPointAndHttpReqType,
