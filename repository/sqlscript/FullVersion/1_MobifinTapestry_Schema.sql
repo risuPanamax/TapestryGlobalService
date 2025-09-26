@@ -36,3 +36,33 @@ CREATE TABLE `TBLMSystemParameter` (
   PRIMARY KEY (`SystemParameterId`),
   UNIQUE KEY `UK_Alias` (`Alias`)
 );
+
+CREATE TABLE `TBLMStandardMaster` (
+  `MasterTypeId` int unsigned NOT NULL AUTO_INCREMENT,
+  `Name` varchar(255) NOT NULL,
+  `UID` varchar(255) NOT NULL,
+  `Status` tinyint unsigned NOT NULL DEFAULT '0',
+  `Visibility` tinyint unsigned NOT NULL DEFAULT '1',
+  `ValidFromDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ValidToDate` timestamp NOT NULL DEFAULT '2035-12-31 23:59:59',
+  PRIMARY KEY (`MasterTypeId`),
+  UNIQUE KEY `ExternalId` (`UID`)
+);
+
+CREATE TABLE `TBLMStandardMasterDetail` (
+  `MasterDetailId` int unsigned NOT NULL AUTO_INCREMENT,
+  `Name` varchar(255) NOT NULL,
+  `DisplayName` varchar(255) NOT NULL,
+  `DisplayNameML` json DEFAULT NULL COMMENT 'This field is used to store the multiple language value in json format',
+  `UID` varchar(255) NOT NULL,
+  `Value` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `MasterTypeId` int unsigned NOT NULL,
+  `Status` tinyint unsigned NOT NULL DEFAULT '0',
+  `Visibility` tinyint unsigned NOT NULL DEFAULT '1',
+  `ValidFromDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ValidToDate` timestamp NOT NULL DEFAULT '2035-12-31 23:59:59',
+  PRIMARY KEY (`MasterDetailId`),
+  UNIQUE KEY `ExternalId` (`UID`),
+  KEY `TBLMStandardMasterDetail_MasterTypeId` (`MasterTypeId`),
+  CONSTRAINT `TBLMStandardMasterDetail_MasterTypeId` FOREIGN KEY (`MasterTypeId`) REFERENCES `TBLMStandardMaster` (`MasterTypeId`)
+);
