@@ -19,6 +19,7 @@ const startApplication = async () => {
   const expressLogger = require("./src/common/middlewares/expressLogger");
   const requestIdMiddleware = require("./src/common/middlewares/requestIdGenerator");
   const responseMiddleware = require("./src/common/middlewares/responseMiddleware");
+  const authMiddleware = require("./src/common/middlewares/authMiddleware");
   const requestContextMiddleware = require("./src/common/middlewares/requestContextMiddleware");
   const { initializeVaultClient } = require("./src/common/vault/vaultIntegration");
   const { replaceValueFromVault } = require("./src/common/vault/vaultCallHelper");
@@ -56,12 +57,12 @@ const startApplication = async () => {
   app.use(requestContextMiddleware);
   app.use(expressLogger);
   app.use(responseMiddleware);
+  app.use(authMiddleware);
   if (NODE_ENV === "DEV" && process.env.NODE_ENV !== "test") {
     const swaggerFile = require("../swagger_output.json");
-    // const swaggerFile = require("../TapestryGlobalService/swagger_output.json");
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile, { explorer: true }));
   }
-  
+
   app.use("/common", commonApiRouter);
   app.use("/magic-builder", magicBuilderApiRouter);
   app.use(ErrorHandler);
