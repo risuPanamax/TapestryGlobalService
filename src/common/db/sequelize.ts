@@ -32,7 +32,7 @@ const sequelize = new Sequelize(
             idle: dbconfig.idle,
         },
 
-        logging: (msg: string) => debugLogger(msg),
+        logging: (msg: string) => debugLogger(msg,MODULE),
     }
 );
 sequelize

@@ -9,9 +9,9 @@ const getAllSystemParam = async (): Promise<any[]> => {
     try {
         debugLogger("Fetching all system parameters", MODULE);
         const systemData = await systemParamRepository.getAllSystemParam();
-        return  systemData;
+        return systemData;
     } catch (error: any) {
-        errorLogger(`Error fetching system parameters: ${error?.message}`, MODULE);
+        errorLogger(`Error fetching system parameters`, error, MODULE);
         throw new TapestryGlobalError(MODULE, error, 500, ErrorConstants.TECHNICAL_ERROR);
     }
 };

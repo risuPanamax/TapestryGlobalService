@@ -17,6 +17,18 @@ export const ErrorConstants = {
         message: "Technical error occurred while processing request",
         errorType: ErrorType.TECHNICAL,
     } as ErrorConstant,
+    
+    UNAUTHORIZED: {
+        statusCode: 401,
+        message: "Unauthorized:Invalid format or Missing token",
+        errorType: ErrorType.TECHNICAL,
+    } as ErrorConstant,
+
+    FORBIDDEN: {
+        statusCode: 403,
+        message: "Forbidden: Invalid token",
+        errorType: ErrorType.TECHNICAL,
+    } as ErrorConstant,
 
     CACHE_MANAGER_ERROR: {
         statusCode: 500,
@@ -35,7 +47,7 @@ export const ErrorConstants = {
         message: "Bad Request",
         errorType: ErrorType.BUSINESS,
     } as ErrorConstant,
-    
+
     SYSTEM_PARAMETER_NOT_FOUND: {
         statusCode: 404,
         message: "System parameter not found for alias $1",

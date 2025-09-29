@@ -15,7 +15,7 @@ const doc = {
     },
     servers: [
         {
-            url: "http://localhost:6666",
+            url: "http://localhost:5557",
             description: "Local server",
         },
     ],

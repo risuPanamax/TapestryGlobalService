@@ -49,8 +49,8 @@ export const sendMessage = asyncErrorHandler(
     const sendMessageDto = {
       ConversationId: body.ConversationId,
       Message: body.Message
-    }; 
-    
+    };
+
     const Data = await magicBuilderService.sendMessage(sendMessageDto);
 
     res.success(

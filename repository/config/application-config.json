@@ -1,18 +1,8 @@
 {
-    "port": "6666",
-    "serverName": "MOBIFINTAPESTRY",
-    "mobifinServerName": "MOBIFIN-ELITE",
-    "environment": "DEV",
-    "AccessChannel": {
-        "TapestryAdmin": {
-            "clientId": "vault:server-properties-tapestry:TapestryAdmin.clientId",
-            "clientSecret": "vault:server-properties-tapestry:TapestryAdmin.clientSecret"
-        },
-        "TapestryBuilder": {
-            "clientId": "vault:server-properties-tapestry:TapestryBuilder.clientId",
-            "clientSecret": "vault:server-properties-tapestry:TapestryBuilder.clientSecret"
-        }
-    },
+    "port": "5557",
+    "environment": "dev",
+    "secret_key": "TtegnzO2QMrHEwgLz5IxFLt8VyM5bhZ9",
+    "allowedOrigins": "http://10.85.35.10:5555",
     "ApiProvider": {
         "OpenTurf": {
             "BaseUrl": "https://tapestry-nlp-bpmn-132157155485.us-central1.run.app",
@@ -20,29 +10,6 @@
             "Secret": ""
         }
     },
-    "defaultLocale": "en",
-    "allowedOrigins": "http://10.85.35.11:8001",
-    "jwtSecretKey": "vault:server-properties-tapestry:jwtSecretKey",
-    "accesstokenIdleExpiry": 1800,
-    "accesstokenExpiry": 86400,
-    "publicEndpoints": [
-        "/login"
-    ],
-    "clientAuthenticatedEndpoints": [
-        "/api/time-zones",
-        "/api/countries",
-        "/standard-master/BUSINESS_DOMAIN",
-        "/standard-master/REGISTER_BY_ROLE",
-        "/standard-master/TEAM_STRENGTH",
-        "/organization/signup",
-        "/standard-master/LANGUAGE",
-        "/auth/forgotPassword",
-        "/auth/verifyCode",
-        "/auth/changePassword"
-    ],
-    "registerUserAllowedEndpoint": [
-        "/auth/userActivation"
-    ],
     "redis": {
         "Password": "vault:redis-cred-Tapestry:redis.cluster.password",
         "Servers": "vault:redis-cred-Tapestry:redis.cluster.servers"
@@ -55,6 +22,5 @@
         "url": "http://10.85.35.10:8200",
         "token": "TAPESTRY_TOKEN",
         "rootPath": "secret/data/"
-    },
-    "workflowExecutionEndpoint": "http://10.85.35.10:8101"
+    }
 }
