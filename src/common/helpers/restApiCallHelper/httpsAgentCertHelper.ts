@@ -22,13 +22,13 @@ export const createHttpClient = (requestId: string): AxiosInstance => {
         ca: caCert,
       });
     } else {
-      errorLogger(`Cert not found at: ${CERT_PATH}. Using default HTTPS agent.`, MODULE);
+      errorLogger(`Cert not found at: ${CERT_PATH}. Using default HTTPS agent.`, null,MODULE);
       httpsAgent = new https.Agent({ rejectUnauthorized: true });
     }
 
     return axios.create({ httpsAgent });
   } catch (err: any) {
-    errorLogger(`Failed to create HTTP client: ${err.message}`, MODULE);
+    errorLogger(`Failed to create HTTP client:`,err, MODULE);
     throw err;
   }
 };

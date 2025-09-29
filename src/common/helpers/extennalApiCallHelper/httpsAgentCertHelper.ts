@@ -1,4 +1,3 @@
-// httpsAgentCertHelper.ts
 import axios, { AxiosInstance } from "axios";
 import https from "https";
 import fs from "fs";
@@ -41,7 +40,7 @@ const createHttpClient = (apiDto: ExternalApiDetail): AxiosInstance => {
         });
         return axios.create({ httpsAgent });
       } else {
-        errorLogger(`Protocol and CertFileName not found at: ${certPath}. Using default HTTPS agent.`, MODULE);
+        errorLogger(`Protocol and CertFileName not found at: ${certPath}. Using default HTTPS agent.`,null, MODULE);
         throw new TapestryGlobalError(MODULE, null, 500, ErrorConstants.TECHNICAL_ERROR);
       }
     }

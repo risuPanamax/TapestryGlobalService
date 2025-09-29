@@ -25,6 +25,8 @@ export const createConversations = asyncErrorHandler(
 
     debugLogger("Create Conversation Request", MODULE);
 
+    console.log("requestId----------------------", requestId);
+
     // const conversionDto = [{ requestId, body  }];
     // const errorInstance = "Something went wrong in controller"
 
@@ -55,8 +57,8 @@ export const sendMessage = asyncErrorHandler(
     const sendMessageDto = {
       ConversationId: body.ConversationId,
       Message: body.Message
-    }; 
-    
+    };
+
     const Data = await magicBuilderService.sendMessage(sendMessageDto);
 
     res.success(
