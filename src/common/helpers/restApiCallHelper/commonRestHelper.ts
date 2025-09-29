@@ -1,10 +1,12 @@
-const MODULE = "EXTERNAL_API_HELPER";
+const MODULE = "COMMON_REST_HELPER";
 import CommonConstants from "../../constant/commonConstant";
 import { debugLogger, errorLogger } from "../../loggers";
 import { ExternalApiDetail } from "../../models";
 import TapestryGlobalError from "../../error/tapestryGlobalError";
 import { ErrorConstants } from "../../constant/errorConstant";
 import { getApplicationConfig } from "../../middlewares/loadConfiguration";
+import { callExternalApi } from "./httpsAgentCertHelper";
+import { replaceRequestDynamicParameter } from "../../utils/requestParamConverter";
 
 export interface ReqHeaders {
   clientId: string;
@@ -16,10 +18,11 @@ export interface ReqHeaders {
  * Handles GET/POST/PUT/DELETE based on ExternalApiDetail's HTTPRequestType
  */
 export const commonHelper = async (apiDto: ExternalApiDetail | null, payload?: any) => {
-  if(!apiDto){
+  if (!apiDto) {
     errorLogger(`Error in commonHelper:`, null, MODULE);
     throw new TapestryGlobalError(MODULE, null, 500, ErrorConstants.TECHNICAL_ERROR);
   }
+
   const { HTTPRequestType } = apiDto;
 
   const GET = CommonConstants.HTTP_REQUEST_TYPE.GET;
@@ -27,18 +30,40 @@ export const commonHelper = async (apiDto: ExternalApiDetail | null, payload?: a
   const PUT = CommonConstants.HTTP_REQUEST_TYPE.PUT;
   const DELETE = CommonConstants.HTTP_REQUEST_TYPE.DELETE;
 
+  // Prepare common DTO with additional requestId
+  const commonDto = {
+    ...payload,
+    requestId: "1212121212",// to be removed once settled
+  };
+  // Replace dynamic parameters in request and endpoint
+  const { request: finalRequest, apiEndPoint: finalUrl } = await replaceRequestDynamicParameter(
+    commonDto,
+    apiDto.Request,
+    apiDto.ApiEndPoint,
+    apiDto.RequestType
+  );
+
+  //updated ApiEndPoint
+  apiDto.ApiEndPoint = finalUrl;
+  // Generate the final URL using updated apiDto
   const FinalUrl = createFinalURL(apiDto);
-  const header = addCommonHeaders(apiDto)
+  console.log("FinalUrl-------",FinalUrl);
+  
+  // Prepare headers
+  const header = addCommonHeaders(apiDto);
+
   // createFinalURL
   payload = {
-    FinalUrl,header
+    body: finalRequest,
+    FinalUrl,
+    header
   };
-  
-  // return payload;
+
   debugLogger(`Calling commonHelper, HTTPRequestType: ${HTTPRequestType}`, MODULE);
 
   try {
     switch (HTTPRequestType) {
+
       case GET:
         debugLogger(`Performing GET request to ${apiDto.ApiEndPoint}`, MODULE);
         // Call your GET request handler
@@ -68,16 +93,16 @@ export const commonHelper = async (apiDto: ExternalApiDetail | null, payload?: a
 // Example request functions (replace with your actual restRequestHelper calls)
 const getRequest = async (apiDto: ExternalApiDetail, payload: any) => {
   // implement axios GET request here
-  return { success: true, method: "GET", endpoint: apiDto.ApiEndPoint, payload };
+  return callExternalApi(apiDto, payload);
 };
 const postRequest = async (apiDto: ExternalApiDetail, payload: any) => {
-  return { success: true, method: "POST", endpoint: apiDto.ApiEndPoint, payload };
+  return callExternalApi(apiDto, payload);
 };
 const putRequest = async (apiDto: ExternalApiDetail, payload: any) => {
-  return { success: true, method: "PUT", endpoint: apiDto.ApiEndPoint, payload };
+  return callExternalApi(apiDto, payload);
 };
 const deleteRequest = async (apiDto: ExternalApiDetail, payload: any) => {
-  return { success: true, method: "DELETE", endpoint: apiDto.ApiEndPoint, payload };
+  return callExternalApi(apiDto, payload);
 };
 
 
@@ -107,9 +132,9 @@ const addCommonHeaders = (apiDTO: ExternalApiDetail) => {
  * Generates the final URL based on DTO, endpoint, and API provider
  */
 const createFinalURL = (apiDTO: ExternalApiDetail): string => {
-// const createFinalURL = (apiDTO: apiDTO, apiEndPoint: string, apiProviderName: string): string => {
-const {ApiEndPoint, ApiProvider} = apiDTO;
-const appConfig = getApplicationConfig();
+  // const createFinalURL = (apiDTO: apiDTO, apiEndPoint: string, apiProviderName: string): string => {
+  const { ApiEndPoint, ApiProvider } = apiDTO;
+  const appConfig = getApplicationConfig();
   if (!appConfig) {
     throw new Error("Application configuration could not be loaded.");
   }
@@ -118,11 +143,13 @@ const appConfig = getApplicationConfig();
   const finalURL = appConfig.ApiProvider[ApiProvider]?.BaseUrl + finalEndPoint;
 
   debugLogger(`FinalEndPoint : ${finalEndPoint}, ApiService: ${ApiProvider}`, MODULE);
-  
+
   return finalURL;
 };
 
 /**
+ * @deprecated
+ * as of now we not supporting Mobifin Login
  * Adds Basic Authorization header for adapter requests
  */
 const addAdapterAuthorizationBasicHeader = async (

@@ -1,5 +1,5 @@
-const createConversations = async (conversionDto: any) => {
-    return [{ conversationId: "conv123", ...conversionDto }];
+const createConversations = async (conversationDto: any) => {
+    return [{ conversationId: "conv123", ...conversationDto }];
     //  const conversationData = await prepareAdminGetReq(
     //   commonDTO,
     //   MobifinAdminApiConstant.BULK_IMPORT_HISTORY

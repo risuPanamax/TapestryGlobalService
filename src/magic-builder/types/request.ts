@@ -7,7 +7,7 @@ type TypedRequest<B = any, Q = any> = Request & CommonRequest & {
 };
 
 // Requests
-export type StartConversionRequest = TypedRequest<{
+export type StartConversationRequest = TypedRequest<{
   ApplicationId: number;
   CollectionId: number;
   WorkflowId: number;

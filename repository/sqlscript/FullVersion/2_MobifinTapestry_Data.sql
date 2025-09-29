@@ -1,4 +1,3 @@
-
 INSERT INTO TBLMStandardMaster (Name, UID, Status, Visibility, ValidFromDate, ValidToDate) VALUES('Protocol', 'PROTOCOL', 0, 1, NOW(), '2035-12-31 23:59:59');
 SET @protocolId = (SELECT MasterTypeId from TBLMStandardMaster where UID = 'PROTOCOL');
 INSERT INTO TBLMStandardMasterDetail (Name, DisplayName, DisplayNameML, UID, Value, MasterTypeId, Status, Visibility, ValidFromDate, ValidToDate) VALUES('HTTP', 'HTTP', '{"en-US": "HTTP", "es-ES": "HTTP"}', 'HTTP_PROTOCOL', '1', @protocolId, 0, 1, NOW(), '2035-12-31 23:59:59'),
@@ -24,5 +23,5 @@ INSERT INTO TBLMStandardMasterDetail (Name, DisplayName, DisplayNameML, UID, Val
 
 INSERT INTO TBLMExternalApiDetail (ApiEndPoint, Name, Description, ApiProvider, Protocol, CertFileName, RequestType, HTTPRequestType, Request, ValidFromDate, ValidToDate, Visibility, Status) VALUES
 ('/conversations', 'Create Conversation', 'Create a new conversation with AI', 'OpenTurf', 2, 'open-turf.pem', 1, 2, 0x7B7D, NOW(), '2035-12-31 23:59:59', 1, 0),
-('/conversations/{{ConversionId}}/message', 'Send Message', 'Send initial message describing to creation of workflow', 'OpenTurf', 2, 'open-turf.pem', 1, 2, 0x7B0D0A226D65737361676522203A2022237B4D6573736167657D222C0D0A22436F6E76657273696F6E496422203A2022237B7E72657055726C28436F6E76657273696F6E4964297D220D0A7D, NOW(), '2035-12-31 23:59:59', 1, 0),
-('/conversations/{{ConversionId}}/bpmn?format=xml', 'Get BPMN (XML)', 'Get generated BPMN in XML format for download', 'OpenTurf', 2, 'open-turf.pem', 1, 1, 0x7B0D0A22436F6E76657273696F6E496422203A2022237B7E72657055726C28436F6E76657273696F6E4964297D220D0A7D, NOW(), '2035-12-31 23:59:59', 1, 0);
+('/conversations/{{ConversationId}}/message', 'Send Message', 'Send initial message describing to creation of workflow', 'OpenTurf', 2, 'open-turf.pem', 1, 2, 0x7B0D0A226D65737361676522203A2022237B4D6573736167657D222C0D0A22436F6E766572736174696F6E496422203A2022237B7E72657055726C28436F6E766572736174696F6E4964297D220D0A7D, '2025-09-24 08:20:51', '2035-12-31 23:59:59', 1, 0),
+('/conversations/{{ConversationId}}/bpmn?format=xml', 'Get BPMN (XML)', 'Get generated BPMN in XML format for download', 'OpenTurf', 2, 'open-turf.pem', 1, 1, 0x7B0D0A22436F6E766572736174696F6E496422203A2022237B7E72657055726C28436F6E766572736174696F6E4964297D220D0A7D, '2025-09-24 08:20:51', '2035-12-31 23:59:59', 1, 0);
