@@ -1,4 +1,4 @@
-const MODULE = "EXTERNAL_API_HELPER";
+const MODULE = "COMMON_REST_HELPER";
 import CommonConstants from "../../constant/commonConstant";
 import { debugLogger, errorLogger } from "../../loggers";
 import { ExternalApiDetail } from "../../models";
@@ -47,7 +47,8 @@ export const commonHelper = async (apiDto: ExternalApiDetail | null, payload?: a
   apiDto.ApiEndPoint = finalUrl;
   // Generate the final URL using updated apiDto
   const FinalUrl = createFinalURL(apiDto);
-
+  console.log("FinalUrl-------",FinalUrl);
+  
   // Prepare headers
   const header = addCommonHeaders(apiDto);
 

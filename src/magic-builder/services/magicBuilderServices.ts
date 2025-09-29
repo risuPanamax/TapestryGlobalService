@@ -57,11 +57,6 @@ const sendMessage = async (conversationDto: IConversationDetail): Promise<any> =
     const apiData = await commonHelper(externalApiData, conversationDto);
     debugLogger("commonHelper returned data - returning response", MODULE);
 
-    apiData.data = {
-        ...apiData.data,
-        conversationId: conversationDto.ConversationId
-    };
-
     return apiData.data;
 };
 
@@ -104,7 +99,7 @@ const getBPMN = async (conversationDto?: ConversationDetail): Promise<any> => {
     debugLogger("Calling commonHelper with external API", MODULE);
 
     const apiData = await commonHelper(externalApiData, conversationDto);
-
+    
     return apiData.data;
 };
 
